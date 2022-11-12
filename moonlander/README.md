@@ -1,4 +1,8 @@
-# Building your layout from source
+## About this Moonlander layout
+
+Explore [this layout](https://configure.zsa.io/moonlander/layouts/aqP7b/Jx3JQ/0) with Oryx.
+
+## Building your layout from source
 
 Congratulations on taking the next step, and making use of your keyboard's open-source nature! There's so much power to unlock — this is going to be fun. :)
 

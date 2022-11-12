@@ -1,4 +1,8 @@
-# Building your layout from source
+## About this Ergodox layout
+
+Explore [this layout](https://configure.zsa.io/ergodox-ez/layouts/0KxOG/EDJwG/0) with Oryx.
+
+## Building your layout from source
 
 Congratulations on taking the next step, and making use of your keyboard's open-source nature! There's so much power to unlock — this is going to be fun. :)
 
