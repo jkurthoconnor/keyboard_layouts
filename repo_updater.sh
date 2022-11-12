@@ -2,6 +2,7 @@
 
 # ./repo_updater.sh --import_from ../zsa_configurator_assets/ergodox_current --repo .
 #                   --import_from argument points to specific version of a keyboard's automatically generated assets
+#                                 directory basename must begin with <keybrd_name>, but may include _suffix
 #                   --repo argument points to root of this repo
 
 set -e
@@ -32,14 +33,14 @@ while [[ ${#@} -gt 0 ]]; do
   shift
 done
 
-if [[ ! -d $REPO_PATH ]] || [[ ! -d $IMPORT_PATH ]]; then
-  fatal_error "Both -r and -i must be set to readable directories."
-fi
-
 ASSETS_KEYBRD_DIR=$(basename $IMPORT_PATH)
 KEYBRD_NAME=${ASSETS_KEYBRD_DIR%%_*}
 SRC_DESTINATION=${REPO_PATH}/${KEYBRD_NAME}
 ARCHIVE_DESTINATION=${REPO_PATH}/${KEYBRD_NAME}_archive
+
+# validate input
+[[ $KEYBRD_NAME =~ ^(moonlander|ergodox)$ ]] || fatal_error "Keyboard must be one of 'moonlander', 'ergodox'"
+[[ -d $REPO_PATH ]] && [[ -d $IMPORT_PATH ]] || fatal_error "Both -r and -i must be set to readable directories."
 
 read -p "We will copy the files from $IMPORT_PATH into ${ARCHIVE_DESTINATION}, and update the source code in ${SRC_DESTINATION} . Is this correct? (y/N) " response
 [[ $response =~ ^[yY] ]] || exit
@@ -49,7 +50,6 @@ read -p "We will copy the files from $IMPORT_PATH into ${ARCHIVE_DESTINATION}, a
 CONFIG_H=$(find ${IMPORT_PATH}/ -type f -name '*config.h')
 FIRMWARE_FN_COMPONENT=$(grep FIRMWARE $CONFIG_H | awk -F \" '{print $2}' | sed 's/\//_/')
 
-# make directory in repo to hold assets. Inside DESTINATION_assets, name with keyboardname_identifier_datestring
 ARCHIVE_DESTINATION=${ARCHIVE_DESTINATION}/${FIRMWARE_FN_COMPONENT}-$(date +"%Y%m%d_%H%M%S")
 mkdir -p $ARCHIVE_DESTINATION
 
