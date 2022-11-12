@@ -1,6 +1,9 @@
 #!/bin/bash
 
-# ./repo_updater.sh -a ../zsa_configurator_assets/ergodox_current -r .
+# ./repo_updater.sh --assets ../zsa_configurator_assets/ergodox_current --repo .
+#                   --assets argument points to specific version of a keyboard's automatically generated assets
+#                   --repo argument points to root of this repo
+
 set -e
 set -x
 
@@ -18,7 +21,7 @@ while [[ ${#@} -gt 0 ]]; do
       shift
       REPO_PATH=$1
       ;;
-    -a|--asset)
+    -a|--assets)
       shift
       ASSETS_PATH=$1
       ;;
